@@ -166,14 +166,14 @@ Deformation of the crystal affects reflection by changes in the incident angle. 
 
 Briefly, surface distortion calculated in the bare silicon model is presented. One can see in Figure~\ref{fig:ydeformation} charts of the \textit{z} displacement as a function of \textit{y} (meridional direction). The position of \textit{x} is set to 0 so that the data is provided on a line going through the center of beam incidence. Temperature is also plotted in the same diagram.
 
-An interesting observation is that at the temperature with zero thermal expansion the deformation curve starts to invert itself, and emerges from its trough, forming a peaked structure. The most important parameter however is the slope caused by this deformation, as it affects the incidence angle of the rays. The derivative of the \textit{z} deformation with respect to \textit{y} is presented in Figure~\ref{fig:yslope}. For a reasonable maximum crystal temperature of 135~K the largest slope error is about 8~$\mu$rad. This 8~$\mu$rad is of the order of the Si~333 rocking curve widths in Figure~\ref{fig:333USG} and therefore significant changes in throughput can be expected. It is crucial then to model the deformation accurately and include it in ray tracing simulations.
+An interesting observation is that at the temperature with zero thermal expansion the deformation curve starts to invert itself, and emerges from its trough, forming a peaked structure. The most important parameter however is the slope caused by this deformation, as it affects the incidence angle of the rays. The derivative of the \textit{z} deformation with respect to \textit{y} is presented in Figure~\ref{fig:yslope}. For a reasonable maximum crystal temperature of 135~K the largest slope error is about 8~$\mu$rad. This is of the order of the Si~333 rocking curve widths in Figure~\ref{fig:333USG} and therefore significant changes in throughput can be expected. It is crucial then to model the deformation accurately and include it in ray tracing simulations.
 
 \subsection{Artificial Gaussian Source}\label{gaussian}
 \subsubsection{Si~111 with Two Dimensional Strain Field}\label{111simulation}
-Earlier, it has been concluded that a uniform strain depth gradient in Si~111 has no considerable effect. However, yet to be investigated is strain constant in depth though varying across the crystal surface. This has the effect of shifting the rocking curve an amount proportional to the strain found at that point in the crystal. When the bandwidth of the monochromator is much smaller than the incident beam this effect can be essentially nullified by adjusting the angle of the second crystal. However, when the strain values deviate significantly across the crystal surface much flux is potentially lost.
+Earlier, it has been concluded that a uniform strain depth gradient in Si~111 has no considerable effect. However, yet to be investigated is strain constant in depth though varying across the crystal surface. This has the effect of shifting the rocking curve by an amount proportional to the strain induced change in lattice spacing found at that point in the crystal. This effect can be nullified by tweaking the second crystal angle to compensate for the rocking curve shift. However, when the strain values deviate across the crystal surface the second crystal is not able to compensate for each value and therefore flux is potentially lost.
 
 
-Scans over the energies 6 to 35~keV were performed in MASH for Si~111 with and without strain and surface deformation included. Figure~\ref{fig:111flux} charts the results of double crystal reflectivity. In both cases the strained crystal curve follows closely that of the unstrained and at no energy does the relative difference between them reach above 3\%.
+Scans over the energies 6 to 35~keV were performed in MASH for Si~111 with and without strain and surface deformation included. Figure~\ref{fig:111flux} charts the results of double crystal reflectivity. In both cases the strained crystal flux follows closely that of the unstrained and is only 1-2\% lower on average.
 
 Figure~\ref{fig:111monobw} shows the monochromator bandwidths (standard deviation) as a function of set photon energy with or without strain and deformation. They are nearly the same, this time with a deviation below 4\%.
 
@@ -223,7 +223,7 @@ The case of Si~333 tells a different story: attenuation due to strain is signifi
 
 \section{FEA Parameters}\label{feaparameters}
 
-This appendix tabulates parameter values for materials in FEA simulations. Values for silicon, copper, indium, and liquid nitrogen are found in Tables~\ref{siliconFEA},~\ref{copperFEA},~\ref{indiumFEA},~\ref{nitrogenFEA} respectively.
+This appendix tabulates parameter values for materials in FEA simulations. Values for silicon, copper, indium, and liquid nitrogen are found in Tables~\ref{siliconFEA},~\ref{copperFEA},~\ref{indiumFEA},~and~\ref{nitrogenFEA} respectively.
 \vspace{1.5cm}
 
 
@@ -301,13 +301,13 @@ Muchas gracias a todos
 \begin{table}\label{gaussian_table}
 \caption{Gaussian beam parameters}
 \begin{tabular}{@{}llll@{}}
-Parameter       & Value         & Units     & Description                                          \\
+Parameter       & Value         & Units     & Description                                           \\
 \hline
-x               & 0.005         & cm        & Gaussian $\sigma$ of horizontal intensity            \\
-z               & 0.0005        & cm        & Gaussian $\sigma$ of vertical intensity              \\ 
-y               & 0.0005        & cm        & Gaussian $\sigma$ of longitudinal intensity          \\
-x'              & 50            & mrad      & Gaussian $\sigma$ of horizontal angular intensity    \\
-z'              & 50            & mrad      & Gaussian $\sigma$ of horizontal angular intensity    \\
+x               & 0.005         & cm        & Gaussian $\sigma$ of horizontal irradiance            \\
+z               & 0.0005        & cm        & Gaussian $\sigma$ of vertical irradiance              \\ 
+y               & 0.0005        & cm        & Gaussian $\sigma$ of longitudinal irradiance          \\
+x'              & 50            & mrad      & Gaussian $\sigma$ of horizontal angular intensity     \\
+z'              & 50            & mrad      & Gaussian $\sigma$ of vertical angular intensity       \\
 
 \end{tabular}
 \end{table}
@@ -319,7 +319,7 @@ Parameter       & Value         & Units     & Description                       
 \hline
 $\lambda$       & 1.8           & cm        & magnetic period length                \\
 n               & 111           & 1         & number of magnetic periods            \\ 
-$l$             & 1             & m         & magnetic length                       \\
+$l$             & 2             & m         & magnetic length                       \\
 $K$             & 2             & 1         & max K value                           \\
 $\sigma_x$      & 40            & $\mu$m    & electron beam horizontal rms size     \\
 $\sigma_z$      & 2             & $\mu$m    & electron beam vertical rms size       \\
@@ -337,7 +337,7 @@ Parameter       & Value         & Units     & Description                       
 \hline
 $\lambda$       & 5             & cm        & magnetic period length                \\
 n               & 40            & 1         & number of magnetic periods            \\ 
-$l$             & 1             & m         & magnetic length                       \\
+$l$             & 2             & m         & magnetic length                       \\
 $K$             & 9             & 1         & max K value                           \\
 $\sigma_x$      & 50            & $\mu$m    & electron beam horizontal rms size     \\
 $\sigma_z$      & 2             & $\mu$m    & electron beam vertical rms size       \\
@@ -372,7 +372,7 @@ E               & 3             & GeV       & electron energy                   
 \end{figure}
 
 \begin{figure}
-\caption{Slope surface deformation of 1st crystal in the meridional direction. Legend gives associated maximum temperature in the crystal.}
+\caption{Slope of error due to thermal buckling of 1st crystal in the meridional direction. Legend gives associated maximum temperature in the crystal.}
 \includegraphics[width = 8.85cm]{images/slope.png}
 \label{fig:yslope}
 \end{figure}
