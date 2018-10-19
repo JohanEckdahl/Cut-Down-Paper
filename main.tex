@@ -96,9 +96,9 @@ The performance of synchrotron radiation facilities is ever increasing. Constant
 
 One of the most impacted components of this trend are the beamline crystal monochromators. These devices typically absorb 99.9\% of incident beam power~\cite{willmott} and are generally placed directly after the front end. This results in an enormous heat load and significant distortion of the crystal. Among the potential effects of this are losses in flux and a change in bandwidth.
 
-Computer simulations of monochromator throughput are commonplace but have had a history of not making entirely accurate predictions. Reference~\cite{innacuratepredictions} reviews this issue in a time where water-cooled crystals were commonplace. Despite the advent of modern liquid nitrogen cooling the situation has only been aggravated due to the advent of higher output X-ray sources with smaller source size and lower source emittance. In order for beamline scientists to better understand their monochromators, and thereby more effectively compensate for performance losses, aspects such as lattice strain should be included in computer simulations. Also, this understanding may aid in the design process of new beamlines and therefore continuing the trend of higher performing synchrotron facilities.
+Computer simulations of monochromator throughput are commonplace but have had a history of not making entirely accurate predictions. Reference~\cite{innacuratepredictions} reviews this issue in a time where water-cooled crystals were commonplace. Despite the advent of modern liquid nitrogen cooling the situation has only been aggravated due to the development of higher output X-ray sources with smaller source size and lower source emittance. In order for beamline scientists to better understand their monochromators, and thereby more effectively compensate for performance losses, aspects such as lattice strain should be included in computer simulations. Also, this understanding may aid in the design process of new beamlines and therefore continuing the trend of higher performing synchrotron facilities.
 
-Previous work on this topic has had interesting results but is believed to have not given a well-rounded picture. In particular, a significant work performed by Zhang et al~\cite{Zhang} used a free parameter to fit prediction to experimental results. In this paper the authors studied crystal surface deformation, rocking curve width and photon throughput. Though many detailed methods were used the predictions were fit to experiments by tuning the heat transfer coefficient between the cooling blocks and silicon crystal.
+Previous work on this topic has had interesting results but is believed to have not given a well-rounded picture. In particular, a significant work performed by Zhang et al~\cite{Zhang} the authors studied crystal surface deformation, rocking curve width and photon throughput. Though many detailed methods were used the predictions were fit to experiments by tuning the heat transfer coefficient between the cooling blocks and silicon crystal.
 
 The studies described here aim to expand and improve previous work on the subject and thoroughly demonstrate the significance of the effect of lattice strain in crystal monochromators. Of particular merit, this study provides detailed ray tracing simulations over a large variety of beam conditions which inspire an intuition of the effects of heat load on a monochromator.
 
@@ -112,20 +112,19 @@ Ray tracing is accomplished using SHADOW3~\cite{shadow3}, a popular, well-tested
 
 Finite element analysis is performed using COMSOL Multiphysics~\cite{comsol}. This program receives a power profile of the absorbed X-rays from SHADOW3 and uses it to calculate heating, mechanical stress and strain in the lattice of the first monochromator. These values are incorporated in subsequent ray tracing.
 
-This intermingling of SHADOW3 and COMSOL is made possible by MASH. Usage of MASH begins with a web interface where one defines properties of the source, beamline optics and sampling methods as well as so-called "parameter sweeps" where basically any beamline parameter can be scanned through automatically. MASH then delegates SHADOW3 and COMSOL using these parameters and supervises their interaction.
+This intermingling of SHADOW3 and COMSOL is made possible by MASH. Usage of MASH begins with a web interface where one defines properties of the source, beamline optics and sampling methods as well as so-called ``parameter sweeps" where basically any beamline parameter can be scanned through automatically. MASH then delegates SHADOW3 and COMSOL using these parameters and supervises their interaction.
 
 \section{Models}
 
 \subsection{Crystal with a Uniform Strain Depth Gradient}\label{strain_gradient} 
-As described by Chukhovskii~\cite{Chukhovskii} and Taupin~\cite{Taupin}, a strain gradient perpendicular to a crystal surface can have a dramatic effect on reflectivity. An analysis was made in order to deem the importance of such a strain gradient for a crystal under heat load. If insignificant, strain can be modeled as a 2-dimensional field of varying interlattice spacing and complexity of the simulations would be drastically reduced as major modifications to the existing SHADOW3 ray tracing code could be avoided. Computer code for calculating crystal reflectivity within the framework of the dynamical theory of X-ray diffraction was written, validated and provided by Reference~\cite{coins}.
-
+As described by Chukhovskii~\cite{Chukhovskii} and Taupin~\cite{Taupin}, a strain gradient perpendicular to a crystal surface can have a dramatic effect on reflectivity. An analysis was made in order to deem the importance of such a strain gradient for a crystal under heat load. If insignificant, strain can be modeled as a 2-dimensional field of varying interlattice spacing. Therefore, complexity of the simulations would be drastically reduced as major modifications to the existing SHADOW3 ray tracing code could be avoided. Computer code for calculating crystal reflectivity within the framework of the dynamical theory of X-ray diffraction was written, validated and provided by Reference~\cite{coins}.
 
 \subsection{FEA Models}
 
 Two geometric models for FEA study in COMSOL were built. The first model was simply a bare block of silicon with a defined constant thermal resistance on two opposite sides. The second is a model of the monochromator found at the MAX IV beamlines NanoMAX and BioMAX including copper cooling blocks flushed with liquid nitrogen. Parameters used in simulations are found in Appendix~\ref{feaparameters}.
 
 \subsubsection{Bare Silicon Block Model}
-This model is rudimentary but its simplicity and low computational costs beneficial for quick testing. Another advantage is that it is very general as few assumptions are made about design parameters. It consists of a $20\times 40\times 50~$mm$^3$ block of pure silicon crystal with beam incidence on the top surface and set thermal resistance on two of its sides. The remaining surfaces are thermally insulated. The crystal is kinematically mounted in three points wit ha minimum of motional restrictions meaning it is fixed in place without limiting the ability to expand or contract in all three directions. The model also features a section of exceptionally fine mesh where the beam is incident. It is fine enough to outline the entire beam profile and has a gradual increase in size until reaching the normal mesh size of the rest of the silicon body. This fine mesh is important in order to accurately sample the power footprint and provide suitably accurate predictions of strain distribution. The meshed silicon block and close-up image of the mesh adjustment are seen in Figure~\ref{fig:bare_silicon}.
+This model is rudimentary but its simplicity and low computational costs are beneficial for quick testing. Another advantage is that it is very general as few assumptions are made about design parameters. It consists of a $20\times 40\times 50~$mm$^3$ block of pure silicon crystal with beam incidence on the top surface and set thermal resistance on two of its sides. The remaining surfaces are thermally insulated. The crystal is kinematically mounted in three points with a minimum of motional restrictions meaning it is fixed in place without limiting the ability to expand or contract in all three directions. The model also features a section of exceptionally fine mesh where the beam is incident. This area is large enough to outline the entire beam profile and has a gradual increase in size until reaching the normal mesh size of the rest of the silicon body. The fine mesh is important in order to accurately sample the power footprint and provide suitably accurate predictions of strain distribution. The meshed silicon block and close-up image of the mesh adjustment are seen in Figure~\ref{fig:bare_silicon}.
 
 COMSOL does not provide a temperature dependent template for silicon in its materials library. Therefore one must derive and insert functions of temperature for the secant coefficient of thermal expansion, $\alpha$, and the thermal conductivity, $\kappa$. This was done using techniques described in Reference~\cite{mash}.
 
@@ -142,9 +141,9 @@ Stress and strain induced by mechanical mounting while the crystal expanded or s
 In order to understand the fundamental relation of the monochromator performance with certain source parameters, a generic light source was used where one has control over each parameter separately. Due to its increased sensitivity to strain, a higher order reflection, here Si~333, was studied. The simplest model was a good starting point. The bare silicon block was set a distance of 20~m from the artificial Gaussian X-ray source. The X-ray source had a flat spectrum, i.e. spectral power flux, ranging from 2 to 40~keV. The spatial distributions in transverse and longitudinal spatial directions as well as the angular distributions were represented by Gaussian functions with parameters given in Table~\ref{gaussian_table}. Unless otherwise stated the total power of the beam was set to 150~W. So-called ``continuation planes", i.e. virtual planes used for probing beam parameters, were set up after each crystal. Optical elements and their distances can be seen in Figure~\ref{fig:dcmtracing}.
 
 \subsection{Undulator and Wiggler Sources}\label{undulatorsource}
-More simulations were performed using an undulator and a wiggler source incident on the bare silicon crystal model. The undulator is modeled after the type used at both BioMAX and NanoMAX and its parameters are given in Table~\ref{ivubiomax}. These simulations were also performed over the range of 6-35~keV. The insertion device gap was programatically adjusted to provide the highest on axis flux at the given photon energy. The optical setup was otherwise the same as for the Gaussian source simulations.
+More simulations were performed using an undulator and a wiggler source incident on the bare silicon crystal model. The undulator is modeled after the type used at both BioMAX and NanoMAX and its parameters are given in Table~\ref{ivubiomax}. An aperture of 800$\times$800~$\mu$m$^2$ was placed at 20~m from the source. The first and second crystal were found at 25 and 25.2~m respectively. The optical setup was otherwise the same as for the Gaussian source simulations. The simulations were performed over the range of 8-35~keV with the insertion device gap programatically adjusted to provide the highest on axis flux at the given photon energy.
 
-The wiggler and corresponding optics match what is found in the MAX IV beamline Balder. The wiggler source radiation cone is limited by front end apertures, reflects from a vertically deflecting collimating mirror and finally passes a vertically deflecting double crystal monochromator. Wiggler parameters are given in Table~\ref{ivwbalder}.
+The wiggler and corresponding optics match what is found in the MAX IV beamline Balder. The wiggler source radiation cone is limited by a front end aperture placed at 15~m of 6$\times$1.5~mm$^2$ horizontal and vertical opening respectively. 420~$\mu$m diamond and 1~mm graphite filters are placed at 23.6~m. A 1.35~m long platinum coated vertically deflecting collimating mirror of grazing incidence 2~mrad with a bender is placed at 26.5~m. The same monochromator is used though vertically deflecting. Wiggler parameters are given in Table~\ref{ivwbalder}.
 
 \subsection{Second Crystal Compensation}
 
@@ -169,6 +168,7 @@ Briefly, surface distortion calculated in the bare silicon model is presented. O
 An interesting observation is that at the temperature with zero thermal expansion the deformation curve starts to invert itself, and emerges from its trough, forming a peaked structure. The most important parameter however is the slope caused by this deformation, as it affects the incidence angle of the rays. The derivative of the \textit{z} deformation with respect to \textit{y} is presented in Figure~\ref{fig:yslope}. For a reasonable maximum crystal temperature of 135~K the largest slope error is about 8~$\mu$rad. This is of the order of the Si~333 rocking curve widths in Figure~\ref{fig:333USG} and therefore significant changes in throughput can be expected. It is crucial then to model the deformation accurately and include it in ray tracing simulations.
 
 \subsection{Artificial Gaussian Source}\label{gaussian}
+
 \subsubsection{Si~111 with Two Dimensional Strain Field}\label{111simulation}
 Earlier, it has been concluded that a uniform strain depth gradient in Si~111 has no considerable effect. However, yet to be investigated is strain constant in depth though varying across the crystal surface. This has the effect of shifting the rocking curve by an amount proportional to the strain induced change in lattice spacing found at that point in the crystal. This effect can be nullified by tweaking the second crystal angle to compensate for the rocking curve shift. However, when the strain values deviate across the crystal surface the second crystal is not able to compensate for each value and therefore flux is potentially lost.
 
@@ -179,12 +179,9 @@ Figure~\ref{fig:111monobw} shows the monochromator bandwidths (standard deviatio
 
 The conclusion is that the effects of strain in this model are negligible. However, it is still worth investigating Si~111 monochromators in more specific simulations with, e.g., insertion devices with collimated beams and beamline optics.
 
-
-
 \subsubsection{Si~333 with Two Dimensional Strain Field}\label{parameterscans}
 
 The simulations described in Section~\ref{111simulation} were repeated for Si~333. Unlike for Si~111 the results with and without strain were drastically dissimilar. In Figure~\ref{fig:333flux} discrepancy ranges from 60\% at 6~keV decreasing to below 50\% near 35~keV. The deviation in bandwidth, shown in Figure~\ref{fig:333monobw}, increases from near 0\% at 7~eV to about 25\% at 35~keV.
-
 
 \subsubsection{Power}
 Double Si~333 throughput as a function of photon energy is plotted in Figure~\ref{fig:333strainpower} for source powers 50, 100, 150 and 200 Watts. The top 4 lines are results for a Si~333 crystal without considering strain or deformation while the bottom four consider both. The flux is normalized with respect to the source flux of the 50~W case.
@@ -192,7 +189,7 @@ Double Si~333 throughput as a function of photon energy is plotted in Figure~\re
 The results clearly show that increases in source power reduce the percentage of the reflected photon flux. This is due to more dramatic strains and deformations at higher power.
 
 \subsubsection{Crystal Distance from Source}
-Figure~\ref{fig:333straindistance} shows throughput for varying distances of the first crystal from the source. Throughput increases with increasing distance. This is due to the decrease of power per unit area and resulting reduction in strain and deformation. The throughput for 80~m distance from the source shows a small drop in flux at higher energies. This is due to the small Bragg angle at these energies and the beam footprint extending outside the crystal boundaries.
+Figure~\ref{fig:333straindistance} shows throughput for varying distances of the first crystal from the source. Throughput increases with increasing distance. This is due to the decrease of power per unit area of the divergent beam and resulting reduction in strain and deformation. The throughput for 80~m distance from the source shows a small drop in flux at higher energies. This is due to the small Bragg angle at these energies and the beam footprint extending outside the crystal boundaries.
 
 \subsubsection{Source Size}
 In Figure~\ref{fig:333strainsourcesize} one sees that source size has no significant effect on flux within the range of the scan. This is because at 20~m the radiation cone has already spread wide enough to hide the micron level changes in the size of the source.
@@ -456,12 +453,12 @@ E               & 3             & GeV       & electron energy                   
 \begin{tabular}{@{}llll@{}}
 Parameter   & Value                   & Units                     & Description                        \\
 \hline
-$h$           & 0.3                     & W/cm$^2\cdot$K          & Heat transfer coefficient          \\
+$h$           & 0.3                     & W/(cm$^2\cdot$K)          & Heat transfer coefficient          \\
 $T_{cool}$  & 77                      & K                         & Side cooling temperature           \\
 $C_{11}$    & $1.6772\times 10^{11}$  & Pa                        & Stiffness tensor 11 component      \\
 $C_{12}$    & $6.4980\times 10^{10}$  & Pa                        & Stiffness tensor 12 component      \\
 $C_{44}$    & $8.0360\times 10^{10}$  & Pa                        & Stiffness tensor 44 component      \\
-$C_p$       & 0.2                     & J/g$\cdot$K               & Heat capacity at constant pressure \\
+$C_p$       & 0.2                     & J/(g$\cdot$K)               & Heat capacity at constant pressure \\
 $\rho$      &  2329                   & kg/m$^3$                  & Density                            \\
 \end{tabular}
 \label{siliconFEA}
@@ -474,8 +471,8 @@ $\rho$      &  2329                   & kg/m$^3$                  & Density     
 \begin{tabular}{@{}llll@{}}
 Parameter    & Value                  & Units                      & Description                        \\
 \hline
-$C_p$        & 385                    & J/kg$\cdot$K               & Heat capacity at constant pressure \\
-$\kappa$     & 400                    & W/m$\cdot$K                & Thermal conductivity               \\ 
+$C_p$        & 385                    & J/(kg$\cdot$K)               & Heat capacity at constant pressure \\
+$\kappa$     & 400                    & W/(m$\cdot$K)                & Thermal conductivity               \\ 
 $\rho$       & 8960                   & kg/m$^3$                   & Density                            \\
 \end{tabular}
 \label{copperFEA}
@@ -487,8 +484,8 @@ $\rho$       & 8960                   & kg/m$^3$                   & Density    
 \begin{tabular}{@{}llll@{}}
 Parameter    & Value                  & Units                      & Description                        \\
 \hline
-$C_p$        & 233                    & J/kg$\cdot$K               & Heat capacity at constant pressure \\
-$\kappa$     & 81.6                   & W/m$\cdot$K                & Thermal conductivity               \\
+$C_p$        & 233                    & J/(kg$\cdot$K)               & Heat capacity at constant pressure \\
+$\kappa$     & 81.6                   & W/(m$\cdot$K)                & Thermal conductivity               \\
 $\rho$       & 7290                   & kg/m$^3$                   & Density                            \\
 \end{tabular}
 \label{indiumFEA}
@@ -502,8 +499,8 @@ Parameter    & Value                  & Units                       & Descriptio
 \hline
 $\mu$        & $157.9\times 10^{-6}$  & Pa$\cdot$s                  & Dynamic viscosity                  \\ 
 $\gamma$     & 1.47                   & 1				            & Ratio of specific heats            \\
-$C_p$        & 2.04                   & kJ/kg$\cdot$K               & Heat capacity at constant pressure \\
-$\kappa$     & 139.6                  & mW/m$\cdot$K                & Thermal conductivity               \\
+$C_p$        & 2.04                   & kJ/(kg$\cdot$K)               & Heat capacity at constant pressure \\
+$\kappa$     & 139.6                  & mW/(m$\cdot$K)                & Thermal conductivity               \\
 $\rho$       & 0.807                  & g/ml                        & Density                            \\
 \end{tabular}
 \label{nitrogenFEA}
