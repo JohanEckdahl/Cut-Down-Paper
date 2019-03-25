@@ -6,9 +6,9 @@
 %------------------------------------------------------------------------------
 
 
-\documentclass[preprint]{iucr}              % DO NOT DELETE THIS LINE
-%\documentclass{iucr}
-
+%\documentclass[preprint]{iucr}              % DO NOT DELETE THIS LINE
+\documentclass{iucr}
+\usepackage{verbatim}
      %-------------------------------------------------------------------------
      % Information about journal to which submitted
      %-------------------------------------------------------------------------
@@ -124,11 +124,11 @@ As described by Chukhovskii~\cite{Chukhovskii} and Taupin~\cite{Taupin}, a strai
 
 \subsection{FEA Models}
 
-Two geometric models for the first crystal of the monochromators were used in COMSOL. The first was simply a bare block of silicon with a defined constant thermal resistance on two opposite sides. The second was a direct cooled crystal developed by the Stanford Synchrotron Radiation Lightsource (SSRL). These models will be referred to as the ``bare silicon" and ``SSRL" models respectively. Parameters used in simulations are found in Appendix~\ref{feaparameters}.
+Two geometric models for the first crystal of the monochromators were used in COMSOL. The first was simply a bare block of silicon with a defined constant thermal resistance on two opposite sides. The second was a direct cooled crystal developed by the Stanford Synchrotron Radiation Lightsource (SSRL). These models are referred to as the ``bare silicon" and ``SSRL" models respectively. Parameters used in simulations are found in Appendix~\ref{feaparameters}.
 
-The bare silicon model is rudimentary but its simplicity and low computational costs are beneficial for quick testing. Another advantage is that it is very general as few assumptions are made about design parameters. It consists of a $20\times 40\times 50~$mm$^3$ block of pure silicon crystal with beam incidence on the top surface and a conservative set thermal resistance of 3000~W/m$^2$ on two of its sides. The remaining surfaces are thermally insulated. The crystal is kinematically mounted in three points with a minimum of motional restrictions. This means it is fixed in place without limiting the ability to expand or contract in all three directions. The model also features a section of exceptionally fine mesh where the beam is incident. This area is large enough to outline the entire beam profile and has a gradual increase in size until reaching the normal mesh size of the rest of the silicon body. The fine mesh is important in order to accurately sample the power footprint and provide suitably accurate predictions of strain distribution. The meshed silicon block and close-up image of the mesh adjustment are seen in Figure~\ref{fig:bare_silicon}.
+The bare silicon model is rudimentary but its simplicity and low computational costs are beneficial for quick testing. Another advantage is that it is very general as few assumptions are made about design parameters. It consists of a $20\times 40\times 50~$mm$^3$ block of pure silicon crystal with beam incidence on the top surface and a conservative set thermal resistance of 3000~W/m$^2$ on two of its sides. The remaining surfaces are thermally insulated. The crystal is kinematically mounted in three points with a minimum of motional restrictions. This means it is fixed in place without limiting the ability to expand or contract in all three directions. The model also features a section of exceptionally fine mesh where the beam is incident. This area is large enough to outline the entire beam profile and has a gradual increase in size until reaching the normal mesh size of the rest of the silicon body. The high granularity of the mesh is important in order to finely sample the power footprint and provide suitably accurate predictions of strain distribution. The meshed silicon block and close-up image of the mesh adjustment are seen in Figure~\ref{fig:bare_silicon}.
 
-The bare silicon model suffers from extreme overheating when exposed to the high powers of undulator sources. For this reason a more realistic cooling model was implemented. The SSRL model is a silicon crystal with reflective volume of $50\times 80\times 40~$mm$^3$ and direct liquid nitrogen cooling. The model is based off a crystal successfully implemented by the SSRL for dissipating typical heat loads of 11~kW from its wigglers \cite{stanford}. A physical image of the crystal if shown in Figure \ref{fig:ssrl_silicon}.
+The bare silicon model suffers from extreme overheating when exposed to the high powers of wiggler sources. For this reason a more realistic cooling model was implemented. The SSRL model is a silicon crystal with reflective volume of $50\times 80\times 40~$mm$^3$ and direct liquid nitrogen cooling. The model is based off a crystal successfully implemented by the Stanford Synchrotron Light Source (SSRL) for dissipating typical heat loads of 11~kW from its wigglers \cite{stanford}. A physical image of the crystal is shown in Figure \ref{fig:ssrl_silicon}.
 
 COMSOL does not provide a temperature dependent template for silicon in its materials library. Therefore one must derive and insert functions of temperature for the secant coefficient of thermal expansion, $\alpha$, and the thermal conductivity, $\kappa$. This was done using techniques described in Reference~\cite{mash}.
 
@@ -140,18 +140,22 @@ It is interesting to note that a third model was created of a silicon crystal in
 In order to understand the fundamental relation of the monochromator performance with certain source parameters, a generic light source was used where one has control over each parameter separately. Due to its increased sensitivity to strain, a higher order reflection, here Si~333, was studied. The simplest model was a good starting point. The bare silicon block was set a distance of 20~m from the artificial Gaussian X-ray source. The X-ray source had a flat spectrum, i.e. spectral power flux, ranging from 2 to 40~keV. The spatial distributions in transverse and longitudinal spatial directions as well as the angular distributions were represented by Gaussian functions with parameters given in Table~\ref{gaussian_table}. Unless otherwise stated the total power of the beam was set to 150~W. So-called ``continuation planes", i.e. virtual planes used for probing beam parameters, were set up after each crystal.
 
 \subsection{Undulator and Wiggler Sources}\label{undulatorsource}
-More simulations were performed using an undulator and a wiggler source incident on the silicon crystal models. The undulator emulates that used at the planned MAX~IV beamline ForMAX with parameters found in Table~\ref{ivubiomax}. An aperture of 800$\times$800~$\mu$m$^2$ was placed 20~m from the source. The first and second crystal were found at 27.5 and 27.6~m respectively. The optical setup was otherwise the same as for the Gaussian source simulations. The simulations were performed over the range of 8~to~35~keV with the insertion device gap programatically adjusted to provide the highest on axis flux at the given photon energy. Over this range, the first crystal experienced a heat load generally between 50~and~80~W with intensity ranging between 10~and~50~W/mm$^2$. 
+More simulations were performed using an undulator and a wiggler source incident on the silicon crystal models. The undulator emulates that to be used at the planned MAX~IV beamline ForMAX with parameters found in Table~\ref{ivubiomax}. An aperture of 800$\times$800~$\mu$m$^2$ was placed 20~m from the source. The first and second crystal were found at 27.5 and 27.6~m respectively. The optical setup was otherwise the same as for the Gaussian source simulations. The simulations were performed over the range of 8~to~35~keV with the insertion device gap programatically adjusted to provide the highest on axis flux at the given photon energy. Over this range, the first crystal experienced a heat load generally between 50~and~80~W with intensity ranging between 10~and~50~W/mm$^2$. 
 
-The wiggler and corresponding optics resemble what is found at the MAX~IV beamline Balder. The wiggler source radiation cone is limited by a front end aperture placed at 15~m of 6$\times$1.5~mm$^2$ horizontal and vertical opening respectively. 420~$\mu$m diamond and 1~mm graphite filters are placed at 23.6~m. A 1.35~m long platinum coated vertically deflecting collimating mirror with grazing incidence of 2~mrad with a bender is placed at 26.5~m. The Stanford monochromator model is used in the vertically deflecting orientation. Wiggler parameters are given in Table~\ref{ivwbalder}.
+The wiggler and corresponding optics resemble what is found at the MAX~IV beamline Balder. The wiggler source radiation cone is limited by a front end aperture placed at 15~m of 6$\times$1.5~mm$^2$ horizontal and vertical opening respectively. 420~$\mu$m diamond and 1~mm graphite filters are placed at 23.6~m. A 1.35~m long platinum coated vertically deflecting collimating mirror with grazing incidence of 2~mrad with a bender is placed at 26.5~m. The Stanford monochromator model is used in the vertically deflecting orientation. Wiggler parameters are given in Table~\ref{ivwbalder}. The wiggler provided much more power to the first crystal. Over a scan of 8 to 35~keV the crystal absorbed between 650 and 660~W with intensities ranging from 2 to 35~W/mm$^2$
 
 \section{Results and Discussion}
 
 The first result is concerning the effects of a uniform strain depth gradient in Si~111 and Si~333 as described in Section~\ref{strain_results}. Secondly, the crystal surface deformation is analyzed in Section~\ref{deformation}. In Section~\ref{parameterscans} parameter scans are described using an artificial Gaussian source and including the effects of a two dimensional strain field across the surface of the first crystal (without strain variation into the crystal bulk). Further studies with undulator and wiggler sources are described in Section~\ref{undulatorwiggler}.
 
 \subsection{Effects of Uniform Strain Depth Gradient in Si~111 and Si~333}\label{strain_results}
+THIS SECTION NEEDS WORK. THE IDEA IS TO TAKE MAX AND MIN STRAIN GRADIENTS AT ALL MEASURED PHOTON ENERGIES IN THESE EXPERIMENTS AND SHOW THAT USG DOESN'T HAVE AN EFFECT. IF IT DOES HAVE A SLIGHT EFFECT THEN IT CAN BE ARGUED THAT THIS IS ONLY THE MOST INTENSE PART OF THE BEAM AND THAT THE MAJORITY OF THE AREA AROUND IT HAS LESS USG.
 
-The numerical methods described in Section~\ref{strain_gradient} were used to plot rocking curves of reflections in crystals with strain depth gradients. Several values for the gradient, photon energy and crystal miller indices were used in calculations and it was found that rocking curves did not become considerably deviant from unstrained crystals at 20~keV in Si~333 until a strain depth gradient value of about 0.0225~m$^{-1}$. Rocking curves using this value for 10 and 20~keV photons in Si~111 and Si~333 are plotted in Figure~\ref{fig:333usg}.
+\begin{comment}
+The numerical methods described in Section~\ref{strain_gradient} were used to plot rocking curves of reflections in crystals with strain depth gradients. Exhaustive values for the gradient, photon energy and crystal miller indices were used in calculations. Strained Si~111 rocking curves were not found to deviate significantly from unstrained curves until reaching unrealistically extreme conditions. However, effects were found in Si~333 at higher photon energies and strain gradients.  strain depth gradient value of about 0.0225~m$^{-1}$. Rocking curves using this value for 20~keV photons in Si~333 are plotted in Figure~\ref{fig:333USG}.
+\end{comment}
 
+\begin{comment}
 To determine if the simulations in this study provide conditions that induce so high a strain ray tracing and FEA analysis was employed. The bare silicon FEA model was used in COMSOL. An undulator source, produced by SHADOW3, of 130~W total power and footprint of approximately 1$\times$2~mm$^2$ was incident on the finely meshed area of the crystal surface. Total power was scaled and footprint adjusted producing a range of maximum temperature and incident intensity on the crystal. Under each condition extrema of strain depth gradient were recorded. The strain depth gradient is a result of temperature dependent thermal expansion and temperature gradients throughout the crystal body. Because these are so dependent on crystal geometry, cooling efficiency, and beam conditions it is impractical and unhelpful to provide an exhaustive list
 
 
@@ -159,14 +163,16 @@ To determine if the simulations in this study provide conditions that induce so 
 The numerical methods introduced in Section~\ref{strain_gradient} were used with photon energies of 10 and 20~keV to generate rocking curves for each strain depth gradient value. The effects of the strain depth gradient did not have a clear effect on the rocking curve until a value of 0.0225~m$^{-1}$. This value is found This the plots in Figure~\ref{fig:111USG} showing Si~111 reflection curves. From the plots one can notice that effects of the strain depth gradient do not clearly develop until around a maximum temperature of 168~K, which is exceptionally warm. Even at this temperature the effect on the rocking curve is negligible as the oscillations in the distorted curve still outline the undistorted curve closely. With this data it is concluded that the effects of a strain depth gradient on the Si~111 reflection need not be considered for the given source within the operating temperatures and photon energies studied in this paper.
 
 However, for higher order reflections, say Si~333, conditions need to be considered more carefully. The same methods were used to generate plots in Figure~\ref{fig:333USG}. Note that even around an operating temperature of 133~K the effects are clearly visible. However, when averaging out these oscillations the curve is not considerably deviant. Reaching higher temperatures the effect is harder to ignore. At 168~K the curve has drifted and is considerably deviant. Unfortunately, the effect of a strain depth gradient in SHADOW3 simulations would be difficult to incorporate and laborious to maintain if it would not become part of SHADOW3's main development branch. However, a moderately powered undulator, e.g. 100~W, and even the wiggler studied in this paper maintain a maximum temperature near or slightly below 135~K. Therefore the effects will be ignored. However, due to its significance, future efforts to incorporate the phenomenon into simulations is likely. For an interesting look at monochromator throughput studies accounting for uniform strain depth gradients see Reference~\cite{mocellaUSG}.
+\end{comment}
+
 
 \subsection{Crystal Surface Deformation}\label{deformation}
 
 Deformation of the crystal affects reflection by changes in the incident angle. Conveniently, SHADOW3 considers the effects of surface deformation. Therefore, manual analysis is only necessary in order for the reader to understand qualitatively the effect of deformation on the output.
 
-Briefly, surface distortion calculated in the bare silicon model is presented. One can see in Figure~\ref{fig:ydeformation} charts of the \textit{z} displacement as a function of \textit{y} (meridional direction). The position of \textit{x} is set to 0 so that the data is provided on a line going through the center of beam incidence. Temperature is also plotted in the same diagram.
+Briefly, surface distortion calculated in the bare silicon model is presented. One can see charts of the \textit{z} displacement as a function of \textit{y} (meridional direction) in Figure~\ref{fig:ydeformation}. The position of \textit{x} is set to 0 so that the data is provided along a line passing through the center of beam incidence. Temperature is also plotted in the same diagram.
 
-An interesting observation is that at the temperature with zero thermal expansion, i.e. about 123~K, the deformation curve starts to invert itself, and emerges from its trough, forming a peaked structure. The most important parameter however is the slope caused by this deformation, as it affects the incidence angle of the rays. The derivative of the \textit{z} deformation with respect to \textit{y} is presented in Figure~\ref{fig:yslope}. For a reasonable maximum crystal temperature of 135~K the largest slope error is over 10~$\mu$rad. This is of the order of the Si~333 rocking curve widths in Figure~\ref{fig:333USG} and therefore significant changes in throughput can be expected. It is crucial then to model the deformation accurately and include it in ray tracing simulations.
+An interesting observation is that at the temperature with zero thermal expansion, i.e. about 123~K, the deformation curve starts to invert itself, and emerges from its trough, forming a peaked structure. The most important parameter however is the slope caused by this deformation, as it affects the incidence angle of the rays. The derivative of the \textit{z} deformation with respect to \textit{y} is presented in Figure~\ref{fig:yslope}. For a reasonable maximum crystal temperature of 135~K the largest slope error is over 10~$\mu$rad. This is of the order of the Si~333 rocking curve widths in Figure~\ref{fig:333USG} and therefore significant changes in throughput can be expected. Charts of higher temperatures are provided to demonstrate the behavior of the inversion of the heat bump. It is crucial then to model the deformation accurately and include it in ray tracing simulations.
 
 \subsection{Artificial Gaussian Source}\label{gaussian}
 
@@ -210,7 +216,10 @@ An argument can be made that attenuation due to strain may be compensated for by
 The second crystal angle was scanned within the range of $\pm$~43.6~$\mu$rad~($\pm$~0.0025 degrees). The consequence of angle adjustment is a shifting rocking curve and change in bandwidth and total flux. Figure~\ref{fig:26kevangle} plots these effects for a monochromator setting of 26~keV. Figure~\ref{fig:maxangleflux} shows a chart of flux for the cases without strain, with strain but without second crystal optimization, and with strain and optimization. One can see that with adjustments to the second crystal some flux can be recovered but not completely. The attenuation hovers around 25\%.
 
 \subsection{Wiggler}
-The final simulation involved 
+The final simulation considered wiggler radiation incident upon Si~111, 311 and 333 crystal orientations using the setup as described in Section~\ref{undulatorsource}. Figure~\ref{fig:ivw111flux} shows attenuation in Si~111 ranging from 5\% near 8~keV to about 12\% near 35~keV. For Si~311 attenuation is more significant ranging from about 40\% to 60\% with increasing energy as shown in Figure~\ref{fig:ivw311flux}. Higher still is attenuation in Si~333. Figure~\ref{fig:ivw333flux} shows attenuation beginning at about 65\% and increasing to 75\% at higher energies. Like the undulator, angle adjustments to the second crystal were performed resulting in a slight recovery of the flux as shown in the figure.
+
+
+
 
 \section{Outlook}
 
@@ -353,14 +362,21 @@ E               & 3             & GeV       & electron energy                   
 \end{tabular}
 \end{table}
 
+\begin{comment}
 \begin{figure}
 \caption{Reflectively of 10~keV \textbf{(a)}, \textbf{(b)}, and 20~keV \textbf{(c)}, \textbf{(d)}, photons over deviations from Bragg angle in Si~111 with uniform strain depth gradient values and max temperatures of \textbf{(a)} 1.84e-02, 133~K, \textbf{(b)}  1.27e-01, 168~K, \textbf{(c)} 1.84e-02, 133~K, and \textbf{(d)}  1.27e-01, 168~K}
 \includegraphics[width =\textwidth]{images/111USG.png}
 \label{fig:111USG}
 \end{figure}
-
 \begin{figure}
 \caption{Reflectively of 10~keV \textbf{(a)}, \textbf{(b)}, and 20~keV \textbf{(c)}, \textbf{(d)}, photons over deviations from Bragg angle in Si~333 with uniform strain depth gradient values and max temperatures of \textbf{(a)} 1.84e-02, 133~K, \textbf{(b)}  1.27e-01, 168~K, \textbf{(c)} 1.84e-02, 133~K, and \textbf{(d)}  1.27e-01, 168~K}
+\includegraphics[width = \textwidth]{images/333USG.png}
+\label{fig:333USG}
+\end{figure}
+\end{comment}
+
+\begin{figure}
+\caption{20~keV photons over deviations from Bragg angle in Si~333 with uniform strain depth gradient value of 0.0225~m$^{-1}$}
 \includegraphics[width = \textwidth]{images/333USG.png}
 \label{fig:333USG}
 \end{figure}
@@ -449,6 +465,24 @@ E               & 3             & GeV       & electron energy                   
 \caption{Double crystal photon flux in Si~333 unstrained and strained cases as well as case for maximum optimization angle of second crystal. Undulator source used with parameters given in Table~\ref{ivubiomax}.}
 \includegraphics[width = 8.85cm]{images/maxangleflux.png}
 \label{fig:maxangleflux}
+\end{figure}
+
+\begin{figure}
+\caption{Double crystal photon flux in Si~111 for wiggler source for unstrained and strained cases. Difference in photon flux is also plotted.}
+\includegraphics[width = 8.85cm]{images/ivw111flux.png}
+\label{fig:ivw111flux}
+\end{figure}
+
+\begin{figure}
+\caption{Double crystal photon flux in Si~311 for wiggler source for unstrained and strained cases. Difference in photon flux is also plotted.}
+\includegraphics[width = 8.85cm]{images/ivw311flux.png}
+\label{fig:ivw311flux}
+\end{figure}
+
+\begin{figure}
+\caption{Double crystal photon flux in Si~333 for wiggler source for unstrained and strained cases with difference plotted. Also included is the maximum flux recovery due to second crystal angle adjustment.}
+\includegraphics[width = 8.85cm]{images/ivw333flux.png}
+\label{fig:ivw333flux}
 \end{figure}
 
 \begin{table}
